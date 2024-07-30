@@ -1,0 +1,29 @@
+
+
+
+
+Release-1---> Branch
+
+ Sprint -1---->Branch
+
+Browse-----> [Epic & User Stories should be  a file]
+Order
+Pay
+Track
+
+
+Release-2
+ Sprint -2
+Browse
+Order
+Pay
+Track
+
+
+Release-3
+
+ Sprint -3
+Browse
+Order
+Pay
+Track

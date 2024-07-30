@@ -1,0 +1,90 @@
+//Devops
+Git/GitHub: SCM
+
+
+
+// Working with git (ie creating localrepository)
+
+Steps:
+
+1. Create a directory
+
+mkdir awsrepo
+
+2.Change the directory
+cd awsrepo
+
+3. initialse this directory has a git  local repository
+
+git init
+
+4. Lets add some file with data in the repository
+
+
+5. Add the created file to the reposiorty
+
+
+git add demo.txt: This will add only one file to the repository
+or
+
+git add . : This will add all files
+
+6.To check weather the file is added to the reposotory
+git status
+
+
+7. Now commit the file (ie staging)
+git commit -m "Added a File to the repo"
+
+
+// Now lets add this to the remote repo
+
+// Next create a remote repositorty in github to be cloned or attached to the local repo 
+
+8.git remote add origin https://github.com/J3-Aquacool/awsrepo.git
+
+9.git push -u origin master
+
+ or
+
+git push -u -f origin master: force push
+
+
+
+10. Adding the branch & creating the branch
+
+git branch module1 : creates a new branch
+
+11. git branch: displays the  branches created
+
+12. git branch --show-current : shows the current branch you are working on
+
+or
+
+git rev-parse --abbrev-ref HEAD
+or
+  git branch --show	(Git 2.22 and above)to check version ---> git --version
+
+
+12.git checkout module1: switch to another branch
+
+13. git push -u origin module1
+
+14. git checkout master
+
+15 .git merge module1
+
+16 .git push --set-upstream origin module1
+
+
+
+
+
+git remote add origin https://github.com/J3-Aquacool/FoodCusineAppProRemoteRepo.git
+
+
+
+
+Jenkins
+Sonarqube
+
