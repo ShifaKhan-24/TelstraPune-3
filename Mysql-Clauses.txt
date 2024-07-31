@@ -1,0 +1,177 @@
+Mysql Clauses:
+
+1.Select
+2.from
+3.where
+4.group by
+5.having
+5.order by
+6.limit
+
+
+
+
+
+
+
+
+
+CREATE DATABASE company;
+USE company;
+CREATE TABLE employee (
+  Id INT PRIMARY KEY,
+  Name VARCHAR(45) NOT NULL,
+  Department VARCHAR(45) NOT NULL,
+  Salary FLOAT NOT NULL,
+  Gender VARCHAR(45) NOT NULL,
+  Age INT NOT NULL,
+  City VARCHAR(45) NOT NULL
+);
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1001, 'John Doe', 'IT', 35000, 'Male', 25, 'London');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1002, 'Mary Smith', 'HR', 45000, 'Female', 27, 'Mumbai');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1003, 'James Brown', 'Finance', 50000, 'Male', 28, 'Delhi');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1004, 'Mike Walker', 'Finance', 50000, 'Male', 28, 'London');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1005, 'Linda Jones', 'HR', 75000, 'Female', 26, 'Mumbai');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1006, 'Anurag Mohanty', 'IT', 35000, 'Male', 25, 'London');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1007, 'Priyanla Dewangan', 'HR', 45000, 'Female', 27, 'Mumbai');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1008, 'Sambit Mohanty', 'IT', 50000, 'Male', 28, 'London');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1009, 'Pranaya Kumar', 'IT', 50000, 'Male', 28, 'London');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1010, 'Hina Sharma', 'HR', 75000, 'Female', 26, 'Mumbai');
+
+
+
+
+// SELECT distinct Department FROM employee;
+//SELECT distinct Department, Salary FROM employee;
+
+
+Using Where clause
+SELECT * FROM employees WHERE Department = ‘HR’;
+SELECT * FROM employees WHERE Gender = ‘Male’ AND Salary > 35000;
+SELECT * FROM employees WHERE Gender = ‘Female’ OR Department = ‘IT’;
+
+
+Using Where clause with update statement
+UPDATE employees SET Salary = Salary + 2000 WHERE Department = ‘IT’;
+
+
+// group by
+SELECT COUNT(*) AS TotalEmployee FROM Employee;
+
+SELECT SUM(Salary) as TotalSalary FROM Employee;
+
+Find the Highest salary in Each Department of the Organization
+SELECT Department, MAX(SALARY) as MaxSalary
+FROM Employee
+GROUP BY Department;
+
+Find the Lowest salary in Each Department
+SELECT Department, MIN(SALARY) as MinSalary
+FROM Employee
+GROUP BY Department;
+
+Find the number of employees working in each Gender per department
+SELECT Department, Salary, COUNT(*) AS EmployeeCount
+FROM Employee
+GROUP BY Department, Salary
+ORDER BY Department;
+
+
+Find the total salaries and the total number of employees by City, and by gender
+SELECT City, Gender,
+SUM(Salary) as TotalSalary,
+COUNT(ID) as TotalEmployees
+FROM Employee
+GROUP BY CITY, Gender;
+
+
+Find the average salary of each department
+SELECT Department, AVG(Salary) as AverageSalary
+FROM Employee
+GROUP BY Department;
+
+
+Having Clause in MySQL 
+
+Filtering rows using WHERE clause
+SELECT City, SUM(Salary) as TotalSalary
+FROM Employee
+WHERE City = 'London'
+GROUP BY City;
+
+Filtering groups using the HAVING clause
+SELECT City, SUM(Salary) as TotalSalary
+FROM Employee
+GROUP BY City
+HAVING City = 'London';
+
+
+Using both Having and Where Clause in MySQL
+
+SELECT City, SUM(Salary) as TotalSalary
+FROM Employee
+WHERE Gender = 'Male'
+GROUP BY City
+HAVING City = 'London';
+
+Having Clause Using SUM Function
+ 	SELECT Department, SUM(Salary) AS Total_Salary
+FROM Employee
+GROUP BY Department
+HAVING SUM(Salary) > 170000;
+
+
+Having Clause Using COUNT Function
+
+SELECT Department, COUNT(*) AS 'Number of employees'
+FROM Employee
+GROUP BY Department
+HAVING COUNT(*) > 5;
+
+Having Clause using AVG Function
+SELECT Department, AVG(Salary) AS 'Average salary'
+FROM Employee
+GROUP BY Department
+HAVING AVG(Salary) > 50000;
+
+Order By Clause
+
+
+SELECT * FROM Employee ORDER BY Name ASC;
+
+
+SELECT * FROM Employee WHERE City = ‘London’ ORDER BY Name ASC;
+
+Order by Clause with Multiple Columns
+
+n this case, the order by clause going to contain two columns. Department column with DESC keyword and Name column with ASC keyword as shown in the below SQL Query. Here, first, the employees are sorted based on the first column and then the employees are sorted based on the second column. But the point that you need to focus on is the second sorting is performed based on the first sorting i.e. for IT department employees it will sort the employees by name and again for HR department employees, it will sort by name and so on.
+
+
+
+SELECT Id, Department, Name, Salary, City, Age, Gender
+FROM Employee
+ORDER BY Department DESC, Name ASC;
+
+
+What happens if the relative position does not exist?
+
+In that case, it will throw an error. If you specify 0, any negative number, or a number that is more than the number of columns in the result set then you will get an error. In the below example, the select statement contains four columns and we are using 5 as the relative position to sort the data and hence when you try to execute the below query, you will get an error.
+
+
+SELECT Name, Department, Gender, City FROM Employee ORDER BY 5 ASC;
+
+Limit in Mysql
+SELECT TOP 5 FROM employee; (SQL server or MS Access)
+SELECT * FROM employee WHERE ROWNUM <=; (oracle)
+SELECT * FROM employee LIMIT 5; (MySQL)
+
+SELECT * FROM Employee LIMIT 5;
+
+SELECT * FROM Employee WHERE City = ‘Mumbai’ ORDER BY Name ASC LIMIT 3;
+
+
+
+Alias Names 
+SELECT COUNT(*) AS TotalEmployees FROM Employee;
+
+SELECT Id, CONCAT(Name, ‘_’, Department), Gender, Salary, Age FROM Employee;
