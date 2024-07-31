@@ -1,0 +1,36 @@
+CREATE TABLE plans (
+plan_id INT,
+plan_name VARCHAR(15) NOT NULL,
+free_minutes VARCHAR(45) NOT NULL,
+free_sms VARCHAR(45) NOT NULL,
+free_mbs VARCHAR(45) NOT NULL
+);
+
+
+
+INSERT INTO plans(plan_id, plan_name, free_minutes, free_sms, free_mbs) VALUES
+(1,'Student',1200,1200,600),
+(2,'Call+',600,100,500),
+(3, 'Datalicious',500,500,2000),
+(4, 'Mobile_Plus',2000,600,1000),
+(5, 'Freedom',1000,600,800);
+
+select * from plans where plan_id=4;
+
+explain select * from plans where plan_id=4;
+
+
+
+
+CREATE INDEX planidindex ON plans1(plan_id);
+select * from plans1 where plan_id=4;
+explain select * from plans1 where plan_id=4;
+
+Multi column index
+CREATE INDEX plans_multi ON plans1(plan_name, free_minutes);
+select * from plans1 where plan_name='Student' and free_minutes=1200;
+
+SHOW INDEXES FROM plans1;
+DROP INDEX plans_multi ON plans1;
+
+// explore ur self for Unique index and make notes on this
