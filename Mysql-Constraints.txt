@@ -1,0 +1,248 @@
+Data Integrity Constraints
+NOT NULL Constraint
+UNIQUE KEY Constraint
+Default Constraint
+CHECK  Constraint
+PRIMARY KEY Constraint
+FOREIGN KEY Constraint.
+
+Setting constraints at Column Level
+CREATE TABLE Employee 
+( 
+    Id      INT PRIMARY KEY, 
+    NAME    VARCHAR(30) NOT NULL, 
+    Emailid VARCHAR(100) UNIQUE 
+);
+
+Setting constraints at Table Level
+
+CREATE TABLE Customer
+( 
+    Id      INT, 
+    NAME    VARCHAR(30), 
+    Email VARCHAR(100),
+    PRIMARY KEY(Id), 
+    UNIQUE(Email)
+);
+
+Constraint with user-defined name 
+CREATE TABLE Employee
+( 
+    Id      INT, 
+    NAME    VARCHAR(30), 
+    Email VARCHAR(100),
+    CONSTRAINT ID_ Unique UNIQUE (Id), 
+    CONSTRAINT Email_Unique UNIQUE(Email)
+);
+
+Composite Constraints
+CREATE TABLE Employee
+( 
+    Id      INT, 
+    Name    VARCHAR(50), 
+    Email   VARCHAR(10), 
+    CONSTRAINT Name_Email_Unique UNIQUE (Name, Email) 
+);
+
+Not Null
+CREATE TABLE Student (
+  StudentId INT NOT NULL,
+  FullName VARCHAR(50) NOT NULL,
+  RegdNo VARCHAR(50) NOT NULL,
+  Branch VARCHAR(50) NOT NULL,
+  Mobile VARCHAR(15)
+);
+
+ALTER TABLE Student MODIFY COLUMN FullName VARCHAR(45) NULL;// can accept null in fullname
+
+ALTER TABLE Student MODIFY COLUMN FullName VARCHAR(45) NOT NULL;
+DELETE FROM Student WHERE FullName IS NULL;
+ALTER TABLE Student MODIFY COLUMN FullName VARCHAR(45) NOT NULL;
+
+
+
+Default Constraint
+
+CREATE TABLE Student (
+    Id INT NOT NULL,
+    Name VARCHAR(255) NOT NULL,
+    Age INT,
+    Country VARCHAR(255)DEFAULT 'INDIA', 
+);
+or using
+
+ALTER TABLE Student ALTER Country SET DEFAULT ‘INDIA’;
+droping
+ALTER TABLE Student ALTER Country DROP DEFAULT;
+
+
+Unique
+CREATE TABLE Employee (
+  Id INT UNIQUE,
+  Name VARCHAR(50) NOT NULL,
+  Email VARCHAR(50) UNIQUE,
+  Department VARCHAR(50) NOT NULL
+);
+
+Table Level
+CREATE TABLE Employee
+( 
+ Id      INT, 
+ Name    VARCHAR(50), 
+ Email   VARCHAR(10), 
+ UNIQUE(Name),
+ UNIQUE(Email)
+);
+ALTER TABLE Employee ADD UNIQUE (Name);
+Note: If data is there then first truncate: TRUNCATE Table Employee;
+
+
+ALTER TABLE Employee DROP INDEX Name;
+
+
+Check constraint
+CREATE TABLE Employees(
+   EmployeeID INT NOT NULL CHECK(EmployeeID BETWEEN 100 AND 1000),
+   NAME VARCHAR(50) NOT NULL,
+   AGE  INT NOT NULL CHECK (AGE >= 18),
+   DeptID INT CHECK(DeptID > 0 AND DeptID < 100),
+   SALARY DECIMAL (18, 2)
+);
+
+CREATE TABLE Persons(
+   PersonID INT NOT NULL,
+   NAME VARCHAR(50) NOT NULL,
+   AGE  INT NOT NULL ,
+   DeptID INT NOT NULL,
+   SALARY DECIMAL (18, 2),
+   CONSTRAINT CHK_PersonID CHECK (PersonID BETWEEN 100 AND 1000),
+   CONSTRAINT CHK_AGE CHECK (AGE >= 18),
+   CONSTRAINT CHK_DeptID CHECK(DeptID > 0 AND DeptID < 100)
+);
+ALTER TABLE Employees add constraint CHK_SALARY check(salary > 10000);
+ 
+ALTER TABLE Employees DROP CHECK CHK_SALARY;
+
+
+Primary Key
+
+CREATE TABLE Employee 
+( 
+    Id   INT PRIMARY KEY, 
+    Name  VARCHAR(500), 
+    Email  VARCHAR(50) PRIMARY KEY,
+    Department  VARCHAR(50)
+);
+
+
+Foriegn Key
+CREATE TABLE Department
+( 
+    Id   INT PRIMARY KEY, 
+    Name VARCHAR(50), 
+    Location  VARCHAR(50) 
+);
+
+CREATE TABLE Employee 
+( 
+    ID    INT PRIMARY KEY, 
+    Name  VARCHAR(30), 
+    Salary INT, 
+    DepartmentId    INT,
+    FOREIGN KEY (DepartmentId) REFERENCES Department(Id) 
+);
+
+ALTER TABLE Employee1 ADD FOREIGN KEY (DepartmentId) REFERENCES Department(Id);
+ALTER TABLE table_name DROP FOREIGN KEY fk_constraint_name;
+
+
+
+Referential Intergrity Constraints
+Delete Rules
+a.ON DELETE CASCADE
+B.ON DELETE SET NULL
+C.ON DELETE NO ACTION
+
+UPDATE Rules
+a.ON UPDATE CASCADE
+B.ON UPDATE SET NULL
+C.ON UPDATE NO ACTION
+
+
+
+CREATE TABLE Department( 
+    Id   INT PRIMARY KEY, 
+    Name NVARCHAR(50) 
+);
+-- Insert some test data in Department Table
+Insert into Department values (10, 'IT');
+Insert into Department values (20, 'HR');
+Insert into Department values (30, 'INFRA');
+
+CREATE TABLE Employees(
+  Id INT PRIMARY KEY,
+  Name VARCHAR(100) NOT NULL,
+  DepartmentID INT
+);
+-- Adding the Foreign Key Constraint
+ALTER TABLE Employees ADD FOREIGN KEY (DepartmentId) REFERENCES Department(Id);
+-- Insert some test data in Employees Table
+INSERT into Employees VALUES (101, 'Anurag', 10); 
+INSERT into Employees VALUES (102, 'Pranaya', 20); 
+INSERT into Employees VALUES (103, 'Hina', 30);
+
+
+DELETE FROM Department WHERE Id = 10;// will rise error
+
+Lets recreate with cascade
+
+DROP TABLE Employees;
+CREATE TABLE Employees(
+  Id INT PRIMARY KEY,
+  Name VARCHAR(100) NOT NULL,
+  DepartmentID INT,
+  FOREIGN KEY (DepartmentId) REFERENCES Department(Id)
+  ON DELETE CASCADE 
+  ON UPDATE CASCADE
+);
+
+DELETE FROM Department WHERE Id = 10;
+UPDATE Department SET Id = 40 WHERE Id = 30;
+
+
+Self explore
+SET NULL
+NO ACTION
+
+INSERT into Employees VALUES (101, 'Anurag', 10); 
+INSERT into Employees VALUES (102, 'Pranaya', 20); 
+INSERT into Employees VALUES (103, 'Hina', 30);
+
+
+
+
+
+CREATE DATABASE company;
+USE company;
+CREATE TABLE employee (
+  Id INT PRIMARY KEY,
+  Name VARCHAR(45) NOT NULL,
+  Department VARCHAR(45) NOT NULL,
+  Salary FLOAT NOT NULL,
+  Gender VARCHAR(45) NOT NULL,
+  Age INT NOT NULL,
+  City VARCHAR(45) NOT NULL
+);
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1001, 'John Doe', 'IT', 35000, 'Male', 25, 'London');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1002, 'Mary Smith', 'HR', 45000, 'Female', 27, 'Mumbai');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1003, 'James Brown', 'Finance', 50000, 'Male', 28, 'Delhi');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1004, 'Mike Walker', 'Finance', 50000, 'Male', 28, 'London');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1005, 'Linda Jones', 'HR', 75000, 'Female', 26, 'Mumbai');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1006, 'Anurag Mohanty', 'IT', 35000, 'Male', 25, 'London');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1007, 'Priyanla Dewangan', 'HR', 45000, 'Female', 27, 'Mumbai');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1008, 'Sambit Mohanty', 'IT', 50000, 'Male', 28, 'London');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1009, 'Pranaya Kumar', 'IT', 50000, 'Male', 28, 'London');
+INSERT INTO employee (Id, `Name`, Department, Salary, Gender, Age, City) VALUES (1010, 'Hina Sharma', 'HR', 75000, 'Female', 26, 'Mumbai');
+
+
+
