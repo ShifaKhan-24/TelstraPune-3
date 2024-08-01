@@ -1,0 +1,81 @@
+1. Open Command prompt and type mongosh to get into mongo shell
+mongosh
+
+
+2. show dbs : Lists all databases created
+3.  use databasename: to enter or switch to database
+4. show collections : list all tables 
+
+
+
+
+
+
+
+
+
+
+// Creating Collection
+1
+
+db.createCollection("weekday")
+or
+db.weekday.insert({"DayName" : "Monday", "DayNo": 1}) 
+
+insert is depricated[use insertOne,InsertMany]
+
+
+db.weekday.insertMany([
+{"DayName" : "Tuesday", "DayNo": 2},
+{"DayName" : "Wednesday", "DayNo": 3},
+{"DayName" : "Thursday", "DayNo": 4},
+{"DayName" : "Friday", "DayNo": 5},
+{"DayName" : "Saturday", "DayNo": 6},
+{"DayName" : "Sunday", "DayNo": 7},
+])
+
+
+
+2. To view the data in collection
+db.weekday.find() or db.weekday.find().pretty()
+
+3.  Retrieve only selected Document from collection
+db.weekday.find({"DayNo":1})
+
+
+
+4. Update a document
+a)db.collectionName.updateOne() 
+b)db.collectionName.updateMany() 
+c)db.collectionName.replaceOne()
+db.weekday.updateOne({"Month" : "January"}, {$set:{"MonthNo": 2}})
+
+db.weekday.updateMany({"Month":"January"}, {$set:{"MonthNo": 2}})
+
+db.weekday.replaceOne({"Month":"January"}, {"MonthNo": 2})
+
+
+5.Delete a document
+db.weekday.deleteOne()
+db.weekday.deleteMany()
+db.weekday.deleteOne({"Month":"January"})
+db.weekday.deleteMany({"Month":"January"})
+
+6.Creating primary key 
+
+Without primary key
+db.month.insertOne({"Month" : "January", "MonthNo": 1})
+
+By default it will assign a primary key value as shown below
+
+[
+  {
+    _id: ObjectId('669f400b4617b26301cc8990'), // primary key unique value
+    Month: 'January',
+    MonthNo: 1
+  }
+]
+
+
+With primary key:
+db.month.insertOne({"_id":"m2","Month" : "February", "MonthNo": 2})
