@@ -1,0 +1,112 @@
+
+
+City:Collection
+__________________________
+city_id ,
+city_name ,
+population,
+mean_income ,
+PRIMARY KEY (city_id)
+
+*************
+Customer: Collection
+______________________
+customer_id,
+first_name,
+last_name ,
+date_of_birth ,
+gender,
+city_id,
+PRIMARY KEY (customer_id),
+FOREIGN KEY (city_id) REFERENCES city(city_id)
+
+1.Document
+
+2.Embedded Documents
+
+
+
+
+
+
+
+
+
+
+
+db.customer.insertOne(
+{ 
+_id:1,first_name:"Raj",last_name:"Kumar",date_of_birth: 
+"1976/12/31",gender:"male",city_id:1,
+
+city:{
+city_id:1,city_name:"bangalore",city_popultation:664046,mean_income:16587
+}
+
+}
+)
+
+db.customer.insertOne(
+{ 
+_id: 2,first_name:"Simran",last_name:"Kaur",date_of_birth: "1969/06/18",gender:"female",city_id:2,city:
+{
+city_id:2,city_name:"Amritsar",city_popultation:13105,mean_income:5467
+
+}
+
+}
+)
+
+
+
+
+db.customer.insertOne(
+{ 
+_id: 3,first_name:"Dominc",last_name:"Silva",date_of_birth: "1977/06/13",gender:"male",city_id:2,city:
+{
+city_id:2,city_name:"goa",city_popultation:13105,mean_income:5467
+
+}
+
+}
+)
+Perform Equality Match on the Embedded Document
+db.customer.find({city:{city_id:2,city_name:"goa",city_popultation:13105,mean_income:5467}}).pretty()
+
+db.customer.find({"city.city_id":2}).pretty()
+
+db.customer.find({"city.city_id":3}).pretty()
+
+db.customer.find({"city.city_id":3}).pretty()
+db.customer.find({"customer.city_id":{$lte:2}}).pretty()
+
+
+
+
+
+
+An Array of Embedded Documents in MongoDB
+db.customer.insertMany(
+[
+{_id: 6,first_name:"Jennifer",last_name:"Mathew",date_of_birth: "2000/12/25",gender:"female",city_id:3,city:{
+city_id:3,city_name:"Bangalore",city_popultation:312514,mean_income:12388
+
+}
+
+
+},
+
+{_id: 7,first_name:"Kiran",last_name:"Kumar",date_of_birth: "1991/02/13",gender:"male",city_id:3,city:{
+city_id:3,city_name:"Mysore",city_popultation:312514,mean_income:12388
+
+}
+
+
+}
+
+
+],
+)
+
+
+
