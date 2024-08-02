@@ -1,0 +1,25 @@
+
+Algorithm
+*********
+
+
+Aakash
+
+Find the first occurrence of an element in an array: Given an array of integers and an element, write a function to find the first occurrence of the element in the array.
+
+
+
+Omkar
+Reverse an array: Write a function to reverse the elements of an array.
+
+
+Shifa
+Find the sum of all elements in an array: Given an array of integers, write a function to find the sum of all elements in the array.
+
+Dakshatha
+Find the second largest element in an array: Given an array of integers, write a function to find the second largest element in the array.
+
+Sahil
+Find the pair of elements in an array that add up to a given sum: Given an array of integers and a target sum, write a function to find the pair of elements in the array that add up to the target sum.
+
+
