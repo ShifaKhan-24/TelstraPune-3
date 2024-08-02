@@ -1,0 +1,50 @@
+
+Problem Statement : Find the sum of all elements in an array.
+Given an array of integers, write a function to find the sum of all elements in the array.
+
+Algorithm:
+
+Note :As the array is already given , we just need to write the function.
+
+
+Algorithm to write a funtion to calculate sum of the elements in array.
+
+
+
+----START----
+
+Step 1 : Initialize a variable Sum = 0;
+
+Step 2 : Iterate through each element of the array
+
+Step 3 : Create a for loop starting from index = 0 to len(array) - 1 with incrementation of +1;
+
+Step 3 : for every iteration calulate Sum += array[i];
+
+Step 4 : Return the sum after completion of the loop.
+
+---- END-----
+
+
+
+-------------------------------- Sudo Code ------------------------
+
+1. create funtion sum();
+2. Initialize variable sum=0;
+3. Create for loop
+4. Start loop from first index = 0 to last index = len - 1;
+5. Calculate sum += arr[i]
+6. return sum;
+
+
+------------------------ Code in Java ------------------------------
+
+public int sum(int[] arr) {
+  int sum = 0;
+  for(int i=0 ; i < arr.length ; i++){
+      sum += arr[i];
+  }
+  return sum;
+}
+
+
